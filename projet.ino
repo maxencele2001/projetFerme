@@ -17,8 +17,7 @@ void setup() {
 }
 
 void loop() {
-  int const nbTabHeures(24);
-  vector<float> tabHeures(nbTabHeures);
+  vector<float> tabHeures;
   ms = millis();
   secondes = ms/1000;
   minutes = secondes/60;
