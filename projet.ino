@@ -1,33 +1,53 @@
+using namespace std;
+#include <vector>
 #define pinPot A0
 #define LED D1
+
 
 unsigned long ms;
 unsigned long secondes;
 unsigned long minutes;
-int dayMax;
 int valPot = 0;
 
 void setup() {
+  
   Serial.begin(9600);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, HIGH);
-
 }
 
 void loop() {
+  int const nbTabHeures(24);
+  vector<float> tabHeures(nbTabHeures);
   ms = millis();
   secondes = ms/1000;
   minutes = secondes/60;
 
-
   valPot = analogRead(pinPot);
   int valTrans = map(valPot, 0, 1024, 1, 10);
-  //dayMax = 1200 / valTrans;
+  // int dayMaxInt = 1200 / valTrans;
+  // float dayMax = 1200 / valTrans;
   int dayMaxInt = 600 / 10;
   float dayMax = 600 / 10;
   
   float uneHeure = dayMax / 24;
   float heure = secondes%dayMaxInt;
+  
+  
+
+  for(int i = 1; i<=24; i++){
+    float heureToTab = uneHeure * i;
+    tabHeures.push_back(heureToTab);
+  }
+
+  for(int i = 0; i<tabHeures.size(); i++){
+    if(heure == tabHeures[i]){
+      eglise();
+    }
+  }
+
+
+
 
   int six = heureDonnee(uneHeure,6);
   int sept = heureDonnee(uneHeure,7);
