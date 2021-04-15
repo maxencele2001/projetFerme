@@ -6,8 +6,9 @@ unsigned long secondes;
 unsigned long minutes;
 int dayMax;
 int midDay;
-int test;
+int midiMinuit;
 int valPot = 0;
+bool isMinuit = true;
 
 void setup() {
   Serial.begin(9600);
@@ -21,40 +22,98 @@ void loop() {
   secondes = ms/1000;
   minutes = secondes/60;
   Serial.println(secondes);
-  Serial.println(minutes);
 
 
   valPot = analogRead(pinPot);
   int valTrans = map(valPot, 0, 1024, 1, 10);
-  dayMax = 600 / valTrans;
-  Serial.println(dayMax);
-  midDay = dayMax/2;
-  test = secondes%midDay;
-  Serial.println("Valeur modulo : ");
-  Serial.println(test);
+  //dayMax = 1200 / valTrans;
+  dayMax = 600 / 10;
   
+  int uneHeure = (dayMax / 24);
+  int heure = secondes%dayMax;
 
-  if(test == 0){
-    digitalWrite(LED, LOW);
-    delay(1000);
-    digitalWrite(LED, HIGH);
+  float six = heureDonnee(dayMax,6);
+  float sept = heureDonnee(dayMax,7);
+  float huit = heureDonnee(dayMax,8);
+  float midi = heureDonnee(dayMax,12);
+  float dixHuit = heureDonnee(dayMax,18);
+  float dixNeuf = heureDonnee(dayMax,19);
+  float vingt = heureDonnee(dayMax,20);
+  float vingtDemi = heureDonnee(dayMax,20.5);
+  float vingtUn = heureDonnee(dayMax,21);
+  float vingtTrois = heureDonnee(dayMax,23);
+  float minuit = 0;
+
+  if(heure == six){
+    // C 6 heures
   }
 
-  
+  if(heure == sept){
+    // C midi
+  }
 
+  if(heure == huit){
+    // C midi
+  }
+
+  if(heure == midi){
+    // C midi
+  }
+
+  if(heure == dixHuit){
+    // C midi
+  }
+
+  if(heure == dixNeuf){
+    // C midi
+  }
+
+  if(heure == vingt){
+    // C midi
+  }
+
+  if(heure == vingtDemi){
+    // C midi
+  }
+
+  if(heure == vingtUn){
+    // C midi
+  }
+  
+  if(heure == vingtTrois){
+    // C midi
+  }
+
+  if(heure == minuit){
+    // C midi
+  }
   
   delay(1000);
 }
 
 
+
+
+
+
+
+void eglise(){
+  Serial.println("DING DONG");
+  delay(1000);
+}
+
 //BASSE COUR
 
-void animPoule(){
-  
+void pouleOn(){
+  Serial.println("pouleOn");
+}
+
+void pouleOff(){
+  Serial.println("pouleOff");
 }
 
 void coqChante(){
-  
+  Serial.println("Coq chante");
 }
 
 void vacheMeugle(){
@@ -76,4 +135,9 @@ void fumee(){
 
 void barbecue(){
   
+}
+
+float heureDonnee(float uneHeure, float heure){
+  float heureDonnee = uneHeure * heure;
+  return heureDonnee;
 }
