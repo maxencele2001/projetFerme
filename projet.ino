@@ -5,10 +5,7 @@ unsigned long ms;
 unsigned long secondes;
 unsigned long minutes;
 int dayMax;
-int midDay;
-int midiMinuit;
 int valPot = 0;
-bool isMinuit = true;
 
 void setup() {
   Serial.begin(9600);
@@ -21,73 +18,76 @@ void loop() {
   ms = millis();
   secondes = ms/1000;
   minutes = secondes/60;
-  Serial.println(secondes);
 
 
   valPot = analogRead(pinPot);
   int valTrans = map(valPot, 0, 1024, 1, 10);
   //dayMax = 1200 / valTrans;
-  dayMax = 600 / 10;
+  int dayMaxInt = 600 / 10;
+  float dayMax = 600 / 10;
   
-  int uneHeure = (dayMax / 24);
-  int heure = secondes%dayMax;
+  float uneHeure = dayMax / 24;
+  float heure = secondes%dayMaxInt;
 
-  float six = heureDonnee(dayMax,6);
-  float sept = heureDonnee(dayMax,7);
-  float huit = heureDonnee(dayMax,8);
-  float midi = heureDonnee(dayMax,12);
-  float dixHuit = heureDonnee(dayMax,18);
-  float dixNeuf = heureDonnee(dayMax,19);
-  float vingt = heureDonnee(dayMax,20);
-  float vingtDemi = heureDonnee(dayMax,20.5);
-  float vingtUn = heureDonnee(dayMax,21);
-  float vingtTrois = heureDonnee(dayMax,23);
-  float minuit = 0;
+  int six = heureDonnee(uneHeure,6);
+  int sept = heureDonnee(uneHeure,7);
+  int huit = heureDonnee(uneHeure,8);
+  int midi = heureDonnee(uneHeure,12);
+  int dixHuit = heureDonnee(uneHeure,18);
+  int dixNeuf = heureDonnee(uneHeure,19);
+  int vingt = heureDonnee(uneHeure,20);
+  int vingtDemi = heureDonnee(uneHeure,20.5);
+  int vingtUn = heureDonnee(uneHeure,21);
+  int vingtTrois = heureDonnee(uneHeure,23);
+  int minuit = heureDonnee(uneHeure,24);
 
   if(heure == six){
-    // C 6 heures
+    fermeOn();
   }
 
   if(heure == sept){
-    // C midi
+    fumeeOff();
+    coqChante();
+    pouleOn();
   }
 
   if(heure == huit){
-    // C midi
+    fermeOff();
   }
 
   if(heure == midi){
-    // C midi
+    coqChante();
   }
 
   if(heure == dixHuit){
-    // C midi
+    fumeeOn();
   }
 
   if(heure == dixNeuf){
-    // C midi
+    coqChante();
+    fermeOn();
   }
 
   if(heure == vingt){
-    // C midi
+    pouleOff();
   }
 
   if(heure == vingtDemi){
-    // C midi
+    barbecueOn();
   }
 
   if(heure == vingtUn){
-    // C midi
+    fermeOff();
   }
   
   if(heure == vingtTrois){
-    // C midi
+    barbecueOff();
   }
 
   if(heure == minuit){
-    // C midi
+    coqChante();
+    vacheMeugle();
   }
-  
   delay(1000);
 }
 
@@ -95,11 +95,10 @@ void loop() {
 
 
 
-
+//EGLISE
 
 void eglise(){
   Serial.println("DING DONG");
-  delay(1000);
 }
 
 //BASSE COUR
@@ -117,27 +116,42 @@ void coqChante(){
 }
 
 void vacheMeugle(){
-  
+  Serial.println("Vache Meugle");
 }
 
 
 //FERME
 
-void ferme(){
-  
+void fermeOn(){
+  Serial.println("fermeOn");
 }
 
-void fumee(){
-  
+void fermeOff(){
+  Serial.println("fermeOff");
 }
+
+void fumeeOn(){
+  Serial.println("fumeeOn");
+}
+
+void fumeeOff(){
+  Serial.println("fumeeOff");
+}
+
 
 //BARBECUE
 
-void barbecue(){
-  
+void barbecueOn(){
+  Serial.println("barbecueOn");
 }
 
-float heureDonnee(float uneHeure, float heure){
-  float heureDonnee = uneHeure * heure;
+void barbecueOff(){
+  Serial.println("barbecueOff");
+}
+
+// Utils
+
+int heureDonnee(float uneHeure, float heure){
+  int heureDonnee = uneHeure * heure;
   return heureDonnee;
 }
