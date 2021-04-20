@@ -45,9 +45,6 @@ void loop() {
     }
   }
 
-
-
-
   int six = heureDonnee(uneHeure,6);
   int sept = heureDonnee(uneHeure,7);
   int huit = heureDonnee(uneHeure,8);
@@ -98,7 +95,7 @@ void loop() {
   if(heure == vingtUn){
     fermeOff();
   }
-  
+
   if(heure == vingtTrois){
     barbecueOff();
   }
