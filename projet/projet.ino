@@ -13,6 +13,9 @@ unsigned long secondes;
 unsigned long minutes;
 int valPot = 0;
 
+int MotorA = D6;
+int MotorB = D7;
+
 void setup() {
   Serial.begin(9600);
   pinMode(LED_Ferme, OUTPUT);
@@ -20,11 +23,14 @@ void setup() {
   pinMode(LED_Poule, OUTPUT);
   pinMode(LED_Barbecue_Jaune, OUTPUT);
   pinMode(LED_Barbecue_Rouge, OUTPUT);
-  digitalWrite(LED_Ferme, LOW);
-  digitalWrite(LED_Fumee, LOW);
-  digitalWrite(LED_Poule, LOW);
-  digitalWrite(LED_Barbecue_Rouge, LOW);
-  digitalWrite(LED_Barbecue_Jaune, LOW);
+  digitalWrite(LED_Ferme, HIGH);
+  digitalWrite(LED_Fumee, HIGH);
+  digitalWrite(LED_Poule, HIGH);
+  digitalWrite(LED_Barbecue_Rouge, HIGH);
+  digitalWrite(LED_Barbecue_Jaune, HIGH);
+
+  pinMode (MotorA, LOW);
+  pinMode (MotorB, HIGH);
 }
 
 void loop() {
@@ -44,6 +50,7 @@ void loop() {
   
   float uneHeure = dayMax / 24;
   float heure = secondes%dayMaxInt;
+  Serial.println(valTrans);
   
   
 
@@ -134,12 +141,12 @@ void eglise(){
 //BASSE COUR
 
 void pouleOn(){
-  digitalWrite(LED_Poule, HIGH);
+  digitalWrite(LED_Poule, LOW);
   Serial.println("pouleOn");
 }
 
 void pouleOff(){
-  digitalWrite(LED_Poule, LOW);
+  digitalWrite(LED_Poule, HIGH);
   Serial.println("pouleOff");
 }
 
@@ -155,22 +162,22 @@ void vacheMeugle(){
 //FERME
 
 void fermeOn(){
-  digitalWrite(LED_Ferme, HIGH);
+  digitalWrite(LED_Ferme, LOW);
   Serial.println("fermeOn");
 }
 
 void fermeOff(){
-  digitalWrite(LED_Ferme, LOW);
+  digitalWrite(LED_Ferme, HIGH);
   Serial.println("fermeOff");
 }
 
 void fumeeOn(){
-  digitalWrite(LED_Fumee, HIGH);
+  digitalWrite(LED_Fumee, LOW);
   Serial.println("fumeeOn");
 }
 
 void fumeeOff(){
-  digitalWrite(LED_Fumee, LOW);
+  digitalWrite(LED_Fumee, HIGH);
   Serial.println("fumeeOff");
 }
 
@@ -178,15 +185,21 @@ void fumeeOff(){
 //BARBECUE
 
 void barbecueOn(){
-  digitalWrite(LED_Barbecue_Jaune, HIGH);
-  digitalWrite(LED_Barbecue_Rouge, HIGH);
+  digitalWrite(LED_Barbecue_Jaune, LOW);
+  digitalWrite(LED_Barbecue_Rouge, LOW);
   Serial.println("barbecueOn");
+
+  digitalWrite(MotorA, LOW);
+  digitalWrite(MotorB, HIGH);
 }
 
 void barbecueOff(){
-  digitalWrite(LED_Barbecue_Jaune, LOW);
-  digitalWrite(LED_Barbecue_Rouge, LOW);
+  digitalWrite(LED_Barbecue_Jaune, HIGH);
+  digitalWrite(LED_Barbecue_Rouge, HIGH);
   Serial.println("barbecueOff");
+
+  digitalWrite(MotorA, LOW);
+  digitalWrite(MotorB, LOW);
 }
 
 // Utils
